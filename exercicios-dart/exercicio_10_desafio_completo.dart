@@ -4,8 +4,8 @@ enum StatusVegetacao { normal, atencao, urgente }
 // Classe de modelo do dominio
 class AreaMonitoramento {
   int id;
-  string codigo;
-  string rodovia;
+  String codigo;
+  String rodovia;
   StatusVegetacao status;
   String? observacoes; // 3. Campo opcional (Null Safety)
 
@@ -19,7 +19,6 @@ class AreaMonitoramento {
 
   String resumo() {
     return 'Área $codigo ($rodovia) | Status: ${status.name} | Obs: ${observacoes ?? "Não informado"}';
-
   }
 }
 
@@ -30,7 +29,7 @@ void main() {
       id: 1,
       codigo: 'SP280-KM120',
       rodovia: 'SP-280',
-      status: Statusvegetacao.normal,
+      status: StatusVegetacao.normal,
       observacoes: 'Faixa limpa',
     ),
     AreaMonitoramento(
@@ -38,11 +37,11 @@ void main() {
       codigo: 'BR116-KM045',
       rodovia: 'BR-116',
       status: StatusVegetacao.atencao,
-    ) // observacoes fica null aqui (Null Safety)
+    ), // observacoes fica null aqui (Null Safety)
   ];
 
   // 4. Set de rodovias únicas
-  set<String> rodoviasUnicas = {'SP-280', 'BR-116', 'SP-330'};
+  Set<String> rodoviasUnicas = {'SP-280', 'BR-116', 'SP-330'};
 
   // 5. Map com dados resumidos de uma medição
   Map<String, dynamic> medicaoRecente = {
@@ -59,7 +58,18 @@ void main() {
 
   // 7. Impressão do relatório final exigido
   print('=== RELATÓRIO FINAL VERDESMART ===');
-  print('Quantidade de áreas monitoradas: ${areas.lenght}');
+  print('Quantidade de áreas monitoradas: ${areas.length}');
   print('Rodovias cadastradas no Set: $rodoviasUnicas');
-  print('Dados da última medição (Map): Temp ${midicaoRecente['temperatura']}°C | Sensor:')
+  print(
+    'Dados da última medição (Map): Temp ${medicaoRecente['temperatura']}°C | Sensor: ${medicaoRecente['sensorId']}',
+  );
+  print(
+    'Resumo rápido (Record) -> Área: ${resumoRapido.codigo} | Densidade: ${resumoRapido.densidade}',
+  );
+
+  print('\n[Simulação] Atualizando área 2 para estado crítico...');
+  areas[1].status = StatusVegetacao.urgente;
+  areas[1].observacoes = 'Vegetação invadindo a pista!';
+
+  print(areas[1].resumo());
 }

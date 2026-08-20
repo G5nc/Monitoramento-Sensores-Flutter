@@ -11,7 +11,7 @@ void main() {
   };
 
   // 1. Imprimindo código da área, densidade e temperatura
-  print('Área: ${medicao['densidade']}');
+  print('Área: ${medicao['areaCodigo']}');
   print('Densidade: ${medicao['densidade']}');
   print('Temperatura: ${medicao['temperatura']} °C');
 
