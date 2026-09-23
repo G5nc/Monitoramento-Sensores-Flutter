@@ -42,3 +42,21 @@ class AreaMonitoramento {
  }
  }
 }
+
+  factory AreaMonitoramento.fromJson(Map<String, dynamic> json) {
+    return AreaMonitoramento(
+      id: json['id'] as int,
+      codigo: json['codigo'] as String,
+      rodovia: json['rodovia'] as String,
+      kmInicial: (json['kmInicial'] as num).toDouble(),
+      kmFinal: (json['kmFinal'] as num).toDouble(),
+      localizacao: json['localizacao'] as String,
+      status: StatusVegetacao.values.byName(
+        (json['status'] as String).toLowerCase(),
+      ),
+      tipoTerreno: json['tipoTerreno'] as String,
+      densidade: (json['densidade'] as num?)?.toDouble(),
+      alturaMedia: (json['alturaMedia'] as num?)?.toDouble(),
+      totalMedicoes: (json['totalMedicoes'] as int?) ?? 0,
+    );
+  }
